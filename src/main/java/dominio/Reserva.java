@@ -4,11 +4,33 @@ import java.util.Date;
 
 public class Reserva {
 	
+	private int codigo;
 	private Date dataReserva;
 	private Date dataCadastro;
 	private int quantidadeDiarias;
+	private Lider lider;
+	private Romaria romaria;
 	
+		
 	
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public Romaria getRomaria() {
+		return romaria;
+	}
+	public void setRomaria(Romaria romaria) {
+		this.romaria = romaria;
+	}
+	public Lider getLider() {
+		return lider;
+	}
+	public void setLider(Lider lider) {
+		this.lider = lider;
+	}
 	public Date getDataReserva() {
 		return dataReserva;
 	}
