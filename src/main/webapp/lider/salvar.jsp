@@ -1,5 +1,5 @@
 <%@page import="persistencia.LiderBD"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.sql.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dominio.Lider"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,15 +20,16 @@
     String estado = request.getParameter("estado");
     
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    Date data = formato.parse(dataNascimento);
-    
+    java.util.Date data = formato.parse(dataNascimento);
+    java.sql.Date sqlDate = new java.sql.Date(data.getTime()); 
+  
     
     Lider lider = new Lider();
     lider.setNome(nome);
     lider.setCpf(cpf);
     lider.setCidade(cidade);
     lider.setEstado(estado);
-    lider.setDataNascimento(data);
+    lider.setDataNascimento(sqlDate);
     lider.setTelefone(telefone);
     LiderBD.inserir(lider);
     

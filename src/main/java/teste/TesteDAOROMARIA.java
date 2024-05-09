@@ -4,9 +4,7 @@ package teste;
 import java.util.ArrayList;
 
 
-import dominio.Reserva;
 import dominio.Romaria;
-import persistencia.ReservaBD;
 import persistencia.RomariaBD;
 
 public class TesteDAOROMARIA {
