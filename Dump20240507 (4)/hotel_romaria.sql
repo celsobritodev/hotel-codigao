@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `lider`
+-- Table structure for table `romaria`
 --
 
-DROP TABLE IF EXISTS `lider`;
+DROP TABLE IF EXISTS `romaria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `lider` (
-  `cpf` varchar(45) NOT NULL,
-  `nome` varchar(45) DEFAULT NULL,
-  `telefone` varchar(45) DEFAULT NULL,
-  `dataNascimento` datetime DEFAULT NULL,
-  `cidade` varchar(45) DEFAULT NULL,
-  `estado` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `romaria` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `quantidadeCasais` int DEFAULT NULL,
+  `quantidadeSolteiros` int DEFAULT NULL,
+  `quantidadeCriancas` int DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `lider`
+-- Dumping data for table `romaria`
 --
 
-LOCK TABLES `lider` WRITE;
-/*!40000 ALTER TABLE `lider` DISABLE KEYS */;
-INSERT INTO `lider` VALUES ('123456','Paçoquinha',NULL,NULL,NULL,NULL),('2233456','outro lider',NULL,NULL,NULL,NULL),('223456','outro lider',NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `lider` ENABLE KEYS */;
+LOCK TABLES `romaria` WRITE;
+/*!40000 ALTER TABLE `romaria` DISABLE KEYS */;
+INSERT INTO `romaria` VALUES (2,17,29,35);
+/*!40000 ALTER TABLE `romaria` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-08 22:29:59
+-- Dump completed on 2024-05-09  9:56:22

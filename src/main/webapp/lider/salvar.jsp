@@ -13,7 +13,7 @@
 <body>
   <%
     String nome = request.getParameter("nome");
-    String cpf = request.getParameter("cfp");
+    String cpf = request.getParameter("cpf");
     String telefone = request.getParameter("telefone");
     String dataNascimento = request.getParameter("dataNascimento");
     String cidade = request.getParameter("cidade");
@@ -36,6 +36,6 @@
   %>
    Lider cadastrado com sucesso!
   <br/>
-  <%=nome%>
+
 </body>
 </html>
