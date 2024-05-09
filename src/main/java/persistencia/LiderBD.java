@@ -1,33 +1,45 @@
 package persistencia;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StandardStaxDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 import dominio.Lider;
 
 public class LiderBD  {
 
-	private static ArrayList<Lider> lista = new ArrayList<Lider>();
-   
-	private static final String CAMINHO = "C:\\Users\\Usuario\\Desktop\\lideres.xml";
-	//private static String caminho ="C:\\Users\\Usuario\\Desktop\\";
-
 	
+	static Connection con = Conexao.getConnection();
+
 	public static void inserir(Lider novoLider) {
-		lerXml();
-		lista.add(novoLider);
-		salvarXml();
+
+		String sql = "INSERT INTO LIDER (cpf,nome,telefone,dataNascimento,cidade,estado) values (?,?,?,?,?,?)";
+
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setString(1, novoLider.getCpf());
+			preparador.setString(2, novoLider.getNome());
+			preparador.setString(3, novoLider.getTelefone());
+			preparador.setDate(4, novoLider.getDataNascimento());
+			preparador.setString(5,novoLider.getCidade());
+			preparador.setString(6,novoLider.getEstado());
+			preparador.execute();
+			preparador.close();
+
+			System.out.println("Cadastrado com sucesso!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
+	
+	
 	
 	public static void alterar(Lider liderAlterado) {
 		excluir(liderAlterado.getCpf());
@@ -36,85 +48,66 @@ public class LiderBD  {
 	}
 	
 	
+	
+	
 	public static void excluir(String cpf) {
-		lerXml();
-		for(int i=0; i<lista.size(); i++)
-		{
-			Lider cadaLider = lista.get(i);
-			if (cadaLider.getCpf().equals(cpf)) {
-				lista.remove(i);
-				break;
-			}
+
+		String sql = "DELETE FROM LIDER WHERE cpf=?";
+
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setString(1, cpf);
+			preparador.execute();
+			preparador.close();
+
+			System.out.println("Excluido com sucesso!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		salvarXml();
-		
+
 	}
+	
+	
+	
+	
 	
 	public static ArrayList<Lider> listar() {
-		lerXml();
-		return lista;
-	}
-	
-	
-    public static void lerXml() {
-        
-        XStream xstream = new XStream();
-        
-        File arquivo = new File(CAMINHO);
-        
-        
-		String xmlAll="";
-		char theChar;
-		
-        if (arquivo.exists()) {
-            FileInputStream fis = null;
-			try {
-				fis = new FileInputStream(arquivo);
-			
-		
-				int data = fis.read();
-				while (data!=-1) {
-					theChar = (char) data;
-					xmlAll=xmlAll+theChar;
-					data = fis.read();
-				}
-				fis.close();
-				
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
-			
-			//lista = new ArrayList<>();
-			List<Lider> listaTemp = (List<Lider>) xstream.fromXML(xmlAll);
-			
-		//	lista = listaTemp;
-			
-            //lista = (ArrayList<Lider>) xstream.fromXML(xmlAll);
-        }
-        else {
-         lista = new ArrayList<>();
-        //System.out.println("Deu erro!");
-    }
 
-}
-	
-	public static void salvarXml() {
-		XStream xstream = new XStream();
-		xstream.alias("lider",Lider.class);
+		String sql = "SELECT * FROM LIDER";
+
+		ArrayList<Lider> lista = new ArrayList<>();
+
 		try {
-			FileWriter escritor= new FileWriter(CAMINHO);
-			escritor.write(xstream.toXML(lista));
-			escritor.close();
-					
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			PreparedStatement preparador = con.prepareStatement(sql);
+
+			ResultSet resultado = preparador.executeQuery();
+
+			while (resultado.next()) {
+
+				Lider novoLider = new Lider();
+
+				novoLider.setCpf(resultado.getString("cpf"));
+				novoLider.setNome(resultado.getString("nome"));
+				novoLider.setTelefone(resultado.getString("telefone"));
+				novoLider.setDataNascimento(resultado.getDate("dataNascimento"));
+				novoLider.setCidade(resultado.getString("cidade"));
+				novoLider.setEstado(resultado.getString("estado"));
+
+				lista.add(novoLider);
+			}
+
+			preparador.close();
+
+			System.out.println("Listado todos com sucesso!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+		return lista;
+   
 	}
+
 }

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexao {
 	
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	public static final String URL = "jdbc:mysql://localhost:3306/bancocjweb1";
+	public static final String URL = "jdbc:mysql://localhost:3306/hotel?useTimezone=true&serverTimezone=UTC";
 	public static final String USER_LOGIN = "root";
 	public static final String USER_PASSWD = "admin";
 

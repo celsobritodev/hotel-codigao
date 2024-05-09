@@ -1,6 +1,6 @@
 package dominio;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Lider {
 	
@@ -47,6 +47,12 @@ public class Lider {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	@Override
+	public String toString() {
+		return "Lider [cpf=" + cpf + ", nome=" + nome + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento
+				+ ", cidade=" + cidade + ", estado=" + estado + "]";
 	}
 
 	
