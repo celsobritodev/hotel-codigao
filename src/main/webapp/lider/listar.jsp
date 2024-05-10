@@ -1,16 +1,20 @@
+<%@page import="dominio.Funcionario"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dominio.Lider"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="persistencia.LiderBD"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/validarUsuario.jsp" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lista de lideres</title>
 </head>
 <body>
+ <jsp:include page="../menu.jsp"></jsp:include>
  <h1> Lista de Lideres</h1>
  
  <table>
