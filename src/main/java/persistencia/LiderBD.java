@@ -70,9 +70,40 @@ public class LiderBD  {
 	}
 	
 	
+    public static Lider getByCpf(String cpf) {
+    	
+    	String sql = "SELECT * FROM LIDER WHERE CPF=?";
+		Lider lider = null;
+		try {
+			PreparedStatement preparador = con.prepareStatement(sql);
+			preparador.setString(1, cpf);
+
+			ResultSet resultado = preparador.executeQuery();
+
+			if (resultado.next()) {
+				lider = new Lider();
+				lider.setCpf(resultado.getString("cpf"));
+				lider.setNome(resultado.getString("nome"));
+				lider.setTelefone(resultado.getString("telefone"));
+				lider.setDataNascimento(resultado.getDate("dataNascimento"));
+				lider.setCidade(resultado.getString("cidade"));
+				lider.setEstado(resultado.getString("estado"));
+				System.out.println("Buscado UM POR CPF com sucesso!");
+			}
+			preparador.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lider;
+
+    	
+    }
 	
-	
-	
+
+    
+    
 	public static ArrayList<Lider> listar() {
 
 		String sql = "SELECT * FROM LIDER";

@@ -12,6 +12,7 @@
 </head>
 <body>
   <%
+    String idAlterado = request.getParameter("idAlterado");
     String nome = request.getParameter("nome");
     String cpf = request.getParameter("cpf");
     String telefone = request.getParameter("telefone");
@@ -24,17 +25,29 @@
     java.sql.Date sqlDate = new java.sql.Date(data.getTime()); 
   
     
-    Lider lider = new Lider();
+    Lider lider;
+    if (idAlterado!="null") {
+    	lider = LiderBD.getByCpf(idAlterado);
+    } else {
+    	lider = new Lider();
+    }
+    	
     lider.setNome(nome);
     lider.setCpf(cpf);
     lider.setCidade(cidade);
     lider.setEstado(estado);
     lider.setDataNascimento(sqlDate);
     lider.setTelefone(telefone);
-    LiderBD.inserir(lider);
+    if (idAlterado!="null") {
+    	LiderBD.alterar(lider);
+    	out.println("Lider alterado com sucesso");
+    } else {
+        LiderBD.inserir(lider);
+        out.println("Lider cadastrado com sucesso");
+    }
     
   %>
-   Lider cadastrado com sucesso!
+   
   <br/>
 
 </body>
